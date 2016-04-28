@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/style.css">
 
 </head>
-<body class='indexPage' height="100%">
+<body class='indexPage'>
 	
 	<br>
 	<br>
@@ -61,30 +61,31 @@
 	    }
 
 	    
-		function SysUser(userName, userPassword, userType) {
-			this.userName = userName;
-			this.userPassword = userPassword;
-			this.userType = userType;
+		function SysUser(user_name, user_password) {
+			this.user_name = user_name;
+			this.user_password = user_password;
 		}
 		$("#login").submit(function Login(){
-			
-			var checkUser = new SysUser(
+			var user = new user(
 				document.getElementById("username").value,
-				document.getElementById("password").value,
-				"x"
+				document.getElementById("password").value
 			);
-			window.sessionStorage.setItem("username", "hello");
-			document.location="main_page.html";
+			if(document.getElementById("password").value != document.getElementById("re_enter_password").value)
+		        $("#msgbox").fadeOut(function(){
+	        		$(this).text('Sorry, password match incorrect. Please try again.').fadeIn();
+	    		});
 			$.ajax({
 				async : false,
 				type : 'POST',
 				url : url,
-				data : JSON.stringify(checkUser),
+				data : JSON.stringify(user),
 				success : function islogin(data) {
+					alert(JSON.stringify(data));
+
 					if(registering==false){
 						if (data != "false") {
-							window.sessionStorage.setItem("username", "hello");
-							document.location='main_page.html';
+							window.sessionStorage.setItem("username", document.getElementById("username").value);
+							document.location='mainPage.html';
 						}
 						if (data=="false")
 					        $("#msgbox").fadeOut(function(){

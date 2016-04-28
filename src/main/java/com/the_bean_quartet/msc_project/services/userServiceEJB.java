@@ -28,5 +28,10 @@ public class userServiceEJB implements userService{
 		// TODO Auto-generated method stub
 		return userDAO.addUser(user);
 	}
+	@Override
+	public String verifyUser(user user) {
+		// TODO Auto-generated method stub
+		return userDAO.verifyUser(user);
+	}
 
 }

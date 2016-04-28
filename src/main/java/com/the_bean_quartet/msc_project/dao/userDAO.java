@@ -12,4 +12,6 @@ public interface userDAO {
 
 	String addUser(user user);
 
+	String verifyUser(user user);
+
 }

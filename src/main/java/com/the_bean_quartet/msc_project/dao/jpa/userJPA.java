@@ -29,8 +29,35 @@ public class userJPA implements userDAO {
 
 	@Override
 	public String addUser(user user) {
-		// TODO Auto-generated method stub
+		if(userExist(user)){
+			return "Username Exists";
+		}
 		em.persist(user);
 		return "well done";
+	}
+	
+	public boolean userExist(user user){
+		Query query = em.createQuery("from user");
+		List<user> users = query.getResultList();
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getUserName().equals(user.getUserName())){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String verifyUser(user user) {
+		Query query = em.createQuery("from user");
+		List<user> users = query.getResultList(); 
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getUserName().equals(user.getUserName())){
+				if(users.get(i).getUserPassword().equals(user.getUserPassword())){
+					return "true";
+				}
+			}
+		}
+		return "false";
 	}
 }

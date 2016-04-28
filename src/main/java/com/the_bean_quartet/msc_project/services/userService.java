@@ -12,4 +12,8 @@ public interface userService {
 
 	public String addUser(user user);
 
+	public String verifyUser(user user);
+
+
+
 }

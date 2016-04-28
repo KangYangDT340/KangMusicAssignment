@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.the_bean_quartet.msc_project.entities.Options;
 import com.the_bean_quartet.msc_project.entities.library;
 import com.the_bean_quartet.msc_project.entities.user;
 import com.the_bean_quartet.msc_project.entities.userList;
@@ -44,43 +45,33 @@ public class userCRUDService {
 	}
 	
 	
-//	@POST
-//	@Produces(MediaType.TEXT_PLAIN)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Path("/update")
-//	public String update(Options option){
-//
-//		String id = option.getOption1();
-//		String task = option.getOption2();
-//		String variable = option.getOption3();
-//		
-//		String rule = "";
-//		
-//		if(task.equals("name")){
-//			rule=verifyUsernameRule(variable);
-//			if(!rule.equals("valid")){
-//				return rule;
-//			}
-//			return service.changeUsername(id, variable);
-//		}
-//		if(task.equals("password")){
-//			rule=verifyPasswordRule(variable);
-//			if(!rule.equals("valid")){
-//				return rule;
-//			}
-//			return service.changeUserPassword(id, variable);
-//		}
-//		if(task.equals("type")){
-//			return service.changeUserType(id, variable);
-//		}
-//		if(task.equals("delete")){
-//			return service.deleteUser(id);
-//		}
-//		
-//		
-//        return "updated";
-//	}
-//	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/verify")
+	public String verifyUser(user user){
+		System.out.println("verfiy user");
+		return userService.verifyUser(user);
+	}
+	
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/register")
+	public String register(user user){
+
+		String name = user.getUserName();
+		String password = user.getUserPassword();
+		
+		String rules = "";
+		rules=verifyUserRule(name,password);
+		if(!rules.equals("valid")){
+			return rules;
+		}		
+		return userService.addUser(user);
+	}
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -91,55 +82,22 @@ public class userCRUDService {
 
 		return userService.addUser(user);
 	}
-//	private String verifyUsernameRule(String name){
-//		if(name.isEmpty()){
-//			return "No username entered";
-//		}
-//		if(containSpecialCharacter(name)){
-//			return "Special Characters not allowed";
-//		}
-//		if(name.length()<4){
-//			return "Username must be greater than 3 characters";
-//		}
-//		if(Character.isDigit(name.charAt(0))){
-//			return "Username must not start with a number";
-//		}
-//		return "valid";
-//	}
-//
-//	private boolean containSpecialCharacter(String name) {
-//		Pattern p = Pattern.compile("[^A-Za-z0-9]");
-//		Matcher m = p.matcher(name);
-//
-//		boolean b = m.find();
-//		if (b == true)
-//			return true;
-//		else
-//			return false;
-//	}
-//	private String verifyPasswordRule(String pwd){
-//		if(pwd.isEmpty()){
-//			return "No username entered";
-//		}
-//		if(containSpecialCharacter(pwd)){
-//			return "Special Characters not allowed";
-//		}
-//		if(pwd.length()<4){
-//			return "Password must be greater than 3 characters";
-//		}
-//		return "valid";
-//	}
-//	
-//	
-//	
-//	@POST
-//	@Produces(MediaType.TEXT_PLAIN)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Path("/verify")
-//	public String verifyUser(SysUser user){
-//		return service.verifyUser(user);
-//	}
-//	
+	
+	private String verifyUserRule(String name, String password){
+		if(name.isEmpty()){
+			return "No username entered";
+		}
+		if(password.isEmpty()){
+			return "No password entered";
+		}
+		return "valid";
+	}
+
+
+
+
+
+	
 //	
 //	
 //	/*
