@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Upload Excel Spreadsheet</title>
+<link rel="stylesheet" type="text/css" href="css/style.css"></link>
+<script type="text/javascript" src="media/js/jquery.js"></script>
+
+<script type="text/javascript">
+/*	function getCurrentAutoImportPath() {
+		$.ajax({
+		    url: "rest/xls_crud/upload",
+		    async: false,
+		    dataType: "text",
+		    success: function(data){
+		        document.getElementById("folder_path").value = data;
+		    },
+		});
+	}
+	
+	function updateAutoImportPath() {
+		var newPath = document.getElementById("folder_path").value;
+		$.ajax({
+			type: "POST",
+			async: false,
+			url:"rest/watchservice/setpath",
+			data: newPath,
+			contentType: "text/plain",
+			success: function() {
+				alert("Sent new path: "+newPath);
+			},
+		});
+	}
+	*/
+</script>
+</head>
+<!--  <body class="indexPage" onload="getCurrentAutoImportPath()"> -->
+<body class="indexPage">	
+	<br />
+	<br />
+	<br />
+	
+	<div id="uploadForm" class="login-card">
+		<div align="center">
+			<img id='img' src="Ericsson_logo.png" alt="EricssonLogo"
+				style="width: 155px; height: 140px;">
+		</div>
+		<form action="rest/xls_crud/upload" method="post"
+			enctype="multipart/form-data">
+
+			<p>
+				<h4 align="center">Choose a file to upload:</h4><br /><br /> 
+				<input id="formInput" type="file" name="uploadedFile" size="50"
+					accept=".xml"/>
+			</p>
+
+			<input id="uploadButton" type="submit" value="Upload It" class="login login-submit"/>
+		</form>
+		
+<!-- 	</div>
+	<div id="auto_import_path" class="login-card">
+		<div id="fpath" class="form-group">
+				<label>Enter Auto-Import Folder Path:</label> <br>
+				<input type="text" class="form-control bfh-text" placeholder="" id="folder_path">
+		</div>
+		<input type="submit" class="login login-submit"
+				value="Update Path" onclick="updateAutoImportPath();">
+			
+	</div>
+ -->
+</body>
+</html>

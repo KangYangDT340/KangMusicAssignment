@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Track Table</title>
+
+<link type="text/css" href="css/bootstrap.css" rel="stylesheet">
+<script type="text/javascript" src="plugins/jquery.js"></script>
+<script type="text/javascript" src="plugins/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="select2/select2.css" rel="stylesheet"/>   
+<link href="select2/s2-docs.css" rel="stylesheet"/>     
+<link href="select2/select2.min.css" rel="stylesheet"/>       
+<script type="text/javascript" src="select2/select2.js"></script>
+<script type="text/javascript" src="select2/select2.full.js"></script> 
+
+<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
+<script type="text/javascript" src="plugins/jquery.dataTables.js"></script>
+<script type="text/javascript" src="plugins/moment.min.js"></script>
+
+
+</head>
+<body>
+
+	<div class='indexPagee'>
+	<br>
+	<br>
+	<br>
+	<div class="login-card">
+		<form role="form" id="details">
+			<div id="playlist-list1">
+				<label>Select Playlist ID:</label> <br> <select
+					id="playlist1-dropdown" tabindex="-1"
+					class="js-example-basic-single form-control"
+					onchange="">
+					<option value=""></option>
+				</select> 
+			</div>
+			<br>
+			<input type="submit" class="login login-submit" value="Submit">
+		</form>
+	</div>
+	<br>
+	<br>
+	</div>
+	<div align="center">
+		<table id="myTable" class="display" width="100%" cellspacing="0" >
+			<thead>
+				<tr>
+					<th>Track Id</th>
+					<th>Name</th>
+					<th>Album</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+	<script>
+	$(document).ready(function() {
+		$(".js-example-basic-single").select2();
+	});
+	$('#myTable').DataTable( {
+		"language": {
+			"emptyTable": "No data to display"
+		}
+	} );
+
+	function obj(option1, option2, option3, option4) {
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+	}
+
+
+	var $playlist1_dropdown = $('#playlist1-dropdown');
+	var $track_dropdown = $('#track-dropdown');
+	/*When playlist from playlist1 dropown is selected, this function is called
+		it will populate the track drop down with tracks from selected playlist
+	*/
+	/*function updateTrackDropdown(playlist){
+		var playlistID = playlist.value;
+		var urlAddress = "rest/lib/tracklist";//to be confirmed
+			
+		$.ajax({
+				async : false,
+				type : 'POST',
+				url : urlAddress,
+				data : JSON.stringify(playlist),
+				success : function message(data) {
+				$track_dropdown.html('');
+				$.each(data.sysUserCollection, function (index, value) {
+			    	   $track_dropdown.append('<option>' + value.id + '</option>');
+			   });
+			}
+		});
+		
+	}
+		*/
+	
+	$.ajax({
+			async : false,
+			type : 'GET',
+			url : "rest/track/getplaylistid",
+			success : function message(data) {
+				//alert(JSON.stringify(data));
+			$track_dropdown.html('');
+			$.each(data.playlistCollection, function (index, value) {
+		    	   $playlist1_dropdown.append('<option>' + value + '</option>');//to be adjusted
+		    	   //$playlist2_dropdown.append('<option>' + value.id + '</option>');
+		   });
+		}
+	});
+	
+
+	
+	$("#details").submit(
+		function getTracks() {
+
+			var url = "rest/track/gettrackbyplaylist";
+			var obj1 = new obj(
+				document.getElementById("playlist1-dropdown").value, //id
+				"", //id
+				"",
+				""
+			);
+			//to be fixed
+			$.ajax({
+				async: false,
+				type : 'POST',
+				url : url,
+				contentType : 'application/json',
+				data:JSON.stringify(obj1),
+				success : function output(data) {
+					alert(JSON.stringify(data));
+
+					var table = $('#myTable').dataTable();
+					table.fnClearTable();
+					$.each(data, function(index, value) {
+				        $.each(value, function (key, val) {
+				            table.dataTable().fnAddData([
+				                val[0],
+				                val[1],
+				                val[2]
+				            ]);
+				        });
+				    });
+				}
+			});
+			
+	});
+
+	</script>
+</body>
+</html>
