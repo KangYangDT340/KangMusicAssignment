@@ -39,5 +39,12 @@ public class libraryJPA implements libraryDAO {
 			System.out.println("Adding library is done");
 
 		}
+
+	@Override
+	public Collection<library> getUserDetailData() {
+		Query query = em.createQuery("select l.user.userID, l.user.userName, l.libraryPID from library l");
+		List<library> bData = query.getResultList(); 
+		return bData;
+	}
 	
 }

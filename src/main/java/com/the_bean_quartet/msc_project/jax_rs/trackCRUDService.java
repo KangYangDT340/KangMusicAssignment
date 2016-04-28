@@ -82,6 +82,27 @@ public class trackCRUDService {
         return data;
 		
 	}
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+	@Path("/gettrackid")
+    public trackList getTrackByPlaylist_trackID() {
+		System.out.println("in track cruds");
+		
+		trackList data=new trackList();
+          data.setTrackCollection(trackService.getTrackByPlaylist_trackID());
+        return data;
+		
+	}
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/changename")
+	public String setPlaylistName(Options opt){
+		String name = opt.getOption2();
+		int id = Integer.parseInt(opt.getOption1());
+		return trackService.reNameTrack(id, name);
+	}
+		
 
 	}
 	

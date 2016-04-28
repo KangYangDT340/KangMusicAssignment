@@ -26,22 +26,13 @@
 	<br>
 	<br>
 	
-	<div class="login-card">
-			<div class="dropdown">
-				<label>Select Option:</label> 
-				<br> 
-				<select id="userOption" class="form-control" onchange="changeOption(this);">
-					<option value="playlistName">Edit Playlist Name</option>
-					<option value="moveTrack">Move Track</option>
-					<option value="deletePlaylist">Delete Playlist</option>
-				</select>
-			</div>
-	</div>
+
 	
 	<div class="login-card">
 		<form role="form" id="details">
 			<div id="playlist-list1">
-				<label>Select Playlist:</label> <br> <select
+				<label>Select Playlist:</label> <br> 
+				<select
 					id="playlist1-dropdown" tabindex="-1"
 					class="js-example-basic-single form-control"
 					onchange="updateTrackDropdown(this);">
@@ -49,31 +40,7 @@
 	
 				</select> 
 			</div>
-			<div id="track-list1" style="display: none;">
-				<label>Select Track from above Playlist:</label> <br> <select
-					id="track-dropdown" tabindex="-1"
-					class="js-example-basic-single form-control">
-					<option>Track</option>
-
-				</select> 
-			</div>
-			<div id="playlist-list2" style="display: none;">
-				<label>Select Playlist to move Track to:</label> <br> <select
-					id="playlist2-dropdown" tabindex="-1"
-					class="js-example-basic-single form-control">
-					<option value=""></option>
-				</select> 
-			</div>
-
-			<br>
-			<div id="playlist-name" class="form-group">
-				<label>Change Playlist Name:</label> <br> 
-				<input type="text" class="form-control bfh-text" placeholder="New Playlist Name" id="newPlaylistName">
-			</div>
-
-			<input type="submit" class="login login-submit" value="Update">
-		</form>
-	  	<a onclick="Help()" href="#">help</a> 
+			
 	</div>
 
 	<script>

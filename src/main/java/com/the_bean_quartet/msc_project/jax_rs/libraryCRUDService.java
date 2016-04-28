@@ -24,4 +24,14 @@ public class libraryCRUDService {
        data.setLibraryCollection(libraryService.getLibraryDataset());
         return data;
     }
+	
+	@Path("/userdetail")
+	@GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public libraryList getUserDetailData() {
+		System.out.println("in library cruds");
+        libraryList data = new libraryList();
+       data.setLibraryCollection(libraryService.getUserDetailData());
+        return data;
+    }
 }

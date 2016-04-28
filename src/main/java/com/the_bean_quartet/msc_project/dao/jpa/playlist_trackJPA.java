@@ -33,7 +33,7 @@ public class playlist_trackJPA implements playlist_trackDAO{
 	@Override
 	public Collection<playlist_track> getPlaylist_track(){
 		System.out.println("In JPA playlist_trackJPA");
-		Query query = em.createQuery("from playlistTrack");
+		Query query = em.createQuery("from playlist_track");
 		List<playlist_track> bData = query.getResultList(); 
 		return bData;
 	}

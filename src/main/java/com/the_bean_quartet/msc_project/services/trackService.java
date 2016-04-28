@@ -20,4 +20,8 @@ public interface trackService {
 	public Collection<track> getTrackByPlaylist(int userID, int playlistID);
 
 	public Object getTrackByPlaylist_playlistID();
+
+	public String reNameTrack(int id, String name);
+
+	public Collection<track> getTrackByPlaylist_trackID();
 }

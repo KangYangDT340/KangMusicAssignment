@@ -14,5 +14,7 @@ public interface trackDAO {
 	public void addTracks(List<track> trackList);
 	public Collection<track> getTrackByPlaylist(int userID, int playlistID);
 	public Collection<track> getTrackByPlaylist_playlistID();
+	public String reNameTrack(int id, String name);
+	public Collection<track> getTrackByPlaylist_trackID();
 
 }

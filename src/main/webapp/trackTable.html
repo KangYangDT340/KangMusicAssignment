@@ -79,28 +79,7 @@
 
 	var $playlist1_dropdown = $('#playlist1-dropdown');
 	var $track_dropdown = $('#track-dropdown');
-	/*When playlist from playlist1 dropown is selected, this function is called
-		it will populate the track drop down with tracks from selected playlist
-	*/
-	/*function updateTrackDropdown(playlist){
-		var playlistID = playlist.value;
-		var urlAddress = "rest/lib/tracklist";//to be confirmed
-			
-		$.ajax({
-				async : false,
-				type : 'POST',
-				url : urlAddress,
-				data : JSON.stringify(playlist),
-				success : function message(data) {
-				$track_dropdown.html('');
-				$.each(data.sysUserCollection, function (index, value) {
-			    	   $track_dropdown.append('<option>' + value.id + '</option>');
-			   });
-			}
-		});
-		
-	}
-		*/
+
 	
 	$.ajax({
 			async : false,
@@ -140,19 +119,20 @@
 
 					var table = $('#myTable').dataTable();
 					table.fnClearTable();
-					$.each(data, function(index, value) {
-				        $.each(value, function (key, val) {
+					$.each(data.trackCollection, function(index, value) {
+				     
 				            table.dataTable().fnAddData([
-				                val[0],
-				                val[1],
-				                val[2]
+                                 	JSON.stringify(value.trackID),
+                        			JSON.stringify(value.trackName),
+                        			JSON.stringify(value.albumName)
 				            ]);
-				        });
+				       
 				    });
 				}
 			});
 			
 	});
+
 
 	</script>
 </body>

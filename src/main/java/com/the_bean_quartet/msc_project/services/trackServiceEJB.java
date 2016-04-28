@@ -49,5 +49,17 @@ public class trackServiceEJB implements trackService{
 		return trackDAO.getTrackByPlaylist_playlistID();
 	}
 
+	@Override
+	public String reNameTrack(int id, String name) {
+		// TODO Auto-generated method stub
+		return trackDAO.reNameTrack(id,name);
+	}
+
+	@Override
+	public Collection<track> getTrackByPlaylist_trackID() {
+		// TODO Auto-generated method stub
+		return trackDAO.getTrackByPlaylist_trackID();
+	}
+
 
 }

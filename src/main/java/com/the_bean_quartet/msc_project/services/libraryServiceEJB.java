@@ -35,4 +35,10 @@ public class libraryServiceEJB implements libraryService{
 
 		libraryDAO.addLibrary(library);
 	}
+
+
+	@Override
+	public Collection<library> getUserDetailData() {
+		return libraryDAO.getUserDetailData();
+	}
 }

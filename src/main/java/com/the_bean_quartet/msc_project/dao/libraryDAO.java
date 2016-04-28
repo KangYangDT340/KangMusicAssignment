@@ -11,6 +11,7 @@ import com.the_bean_quartet.msc_project.entities.track;
 public interface libraryDAO {
 	Collection<library> getLibraryData();
 	void addLibrary(library library);
+	Collection<library> getUserDetailData();
 
 
 }

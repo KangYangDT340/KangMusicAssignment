@@ -15,4 +15,6 @@ public interface libraryService {
 
 	void addLibrary(library library);
 
+	Collection<library> getUserDetailData();
+
 }

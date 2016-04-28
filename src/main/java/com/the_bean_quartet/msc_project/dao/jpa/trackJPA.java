@@ -40,8 +40,9 @@ public class trackJPA implements trackDAO {
 
 	@Override
 	public Collection<track> getTrackByPlaylist(int userID, int playlistID) {
-		Query query = em.createQuery("select p.track from playlistTrack p where p.playlistID = :playlistID"
-				+ " and p.playlist.libraryPID.user.userID=: userID");
+		Query query = em.createQuery("select p.track.trackID, p.track.trackName, p.track.albumName from playlist_track p where p.playlistID = :playlistID"
+				+ " and p.playlist.libraryPID.user.userID=:userID");
+//		.trackID, p.track.trackName, p.track.trackAlbum 
 		query.setParameter("playlistID", playlistID);
 		query.setParameter("userID", userID);
 		//Query query = em.createQuery("from Playlist_Track_Link");
@@ -53,10 +54,28 @@ public class trackJPA implements trackDAO {
 
 	@Override
 	public Collection<track> getTrackByPlaylist_playlistID() {
-		Query query = em.createQuery("select p.playlistID from playlistTrack p");
+		Query query = em.createQuery("select p.playlistID from playlist_track p");
 		List<track> data = query.getResultList();
 
 		return data;
+	}
+	@Override
+	public Collection<track> getTrackByPlaylist_trackID() {
+		Query query = em.createQuery("select p.trackID from playlist_track p");
+		List<track> data = query.getResultList();
+
+		return data;
+	}
+
+	@Override
+	public String reNameTrack(int id, String name) {
+		Query query = em.createQuery("update playlist_track set track.trackName = :name where trackId = :id");
+		query.setParameter("name", name);
+		query.setParameter("id", id);
+		track track = em.find(track.class, id);
+		track.setTrackName(name); 
+		em.merge(track); 
+		return "Name Changed";
 	}
 		
 

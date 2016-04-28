@@ -34,22 +34,44 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a id="userStory9" onclick="viewPlaylists()" href="#">
-							<font size="5">View list of Playlists</font>
+							<font size="5">View list of playlist</font>
 							</a>
 						</li>
 						<li>
 							<a id="userStory10" onclick="viewTracks()" href="#">
-							<font size="5">View list of Tracks</font>
+							<font size="5">View tracks in playlist</font>
 							</a>
 						</li>
 						<li>
 							<a id="userStory10" onclick="viewAllTracks()" href="#">
-							<font size="5">View all Tracks</font>
+							<font size="5">View all tracks</font>
+							</a>
+						</li>
+						<li>
+							<a id="userStory10" onclick="viewUser()" href="#">
+							<font size="5">View user detail</font>
 							</a>
 						</li>
 					</ul>
 				</li>
-				<li><a id="network manager" href="#" onclick="editBackups()"><font size="5">Edit Backups</font></a>
+				<li><a id="network manager" href="#" data-toggle="dropdown"><font size="5">Edit Backups</font></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a id="userStory9" onclick="renameTrack()" href="#">
+							<font size="5">Rename track</font>
+							</a>
+						</li>
+						<li>
+							<a id="userStory10" onclick="moveTrack()" href="#">
+							<font size="5">Move track</font>
+							</a>
+						</li>
+						<li>
+							<a id="userStory10" onclick="deleteTrack()" href="#">
+							<font size="5">Delete track</font>
+							</a>
+						</li>
+				
 				</li>
 			</ul>
 		</div>
@@ -82,7 +104,7 @@
 		function viewTracks() {
 	        $("#msgbox").fadeOut(function(){
         		$(this).text(
-        				'View Tracks'
+        				'View Tracks in Playlist'
         				).fadeIn();
     		});
 			frame = document.getElementById("frame");
@@ -96,6 +118,15 @@
     		});
 			frame = document.getElementById("frame");
 			frame.innerHTML = '<iframe src="allTrackTable.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
+		}
+		function viewUser() {
+	        $("#msgbox").fadeOut(function(){
+        		$(this).text(
+        				'View user details'
+        				).fadeIn();
+    		});
+			frame = document.getElementById("frame");
+			frame.innerHTML = '<iframe src="userDetail.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
 		}
 		function importBackups() {
 	        $("#msgbox").fadeOut(function(){
@@ -115,14 +146,32 @@
 			frame = document.getElementById("frame");
 			frame.innerHTML = '<iframe src="playlistTable.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
 		}
-		function editBackups(){
+		function renameTrack(){
 	        $("#msgbox").fadeOut(function(){
         		$(this).text(
-        				'Edit Backups'
+        				'Rename Track'
         				).fadeIn();
     		});
 			frame = document.getElementById("frame");
-			frame.innerHTML = '<iframe src="editBackup.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
+			frame.innerHTML = '<iframe src=".html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
+		}
+		function moveTrack(){
+	        $("#msgbox").fadeOut(function(){
+        		$(this).text(
+        				'Move Track'
+        				).fadeIn();
+    		});
+			frame = document.getElementById("frame");
+			frame.innerHTML = '<iframe src=".html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
+		}
+		function deleteTrack(){
+	        $("#msgbox").fadeOut(function(){
+        		$(this).text(
+        				'Delete Track'
+        				).fadeIn();
+    		});
+			frame = document.getElementById("frame");
+			frame.innerHTML = '<iframe src=".html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
 		}
 		
 
