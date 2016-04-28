@@ -61,9 +61,9 @@
 	    }
 
 	    
-		function SysUser(user_name, user_password) {
-			this.user_name = user_name;
-			this.user_password = user_password;
+		function user(name, password) {
+			this.name = name;
+			this.password = password;
 		}
 		$("#login").submit(function Login(){
 			var user = new user(

@@ -50,6 +50,8 @@ public class userCRUDService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/verify")
 	public String verifyUser(user user){
+		System.out.println("verf11111111111111111111111111111111111iy user");
+
 		System.out.println("verfiy user");
 		return userService.verifyUser(user);
 	}
@@ -60,6 +62,7 @@ public class userCRUDService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/register")
 	public String register(user user){
+		System.out.println("verfregister11111111111111111111iy user");
 
 		String name = user.getUserName();
 		String password = user.getUserPassword();
