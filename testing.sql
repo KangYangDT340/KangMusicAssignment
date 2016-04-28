@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `testing`.`track` (
   `name` VARCHAR(45) NULL COMMENT '',
   `album` VARCHAR(45) NULL COMMENT '',
   PRIMARY KEY (`trackID`)  COMMENT '')
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `testing`.`user` (
   `userName` VARCHAR(45) NOT NULL COMMENT '',
   `userPassword` VARCHAR(45) NOT NULL COMMENT '',
   PRIMARY KEY (`userID`)  COMMENT '')
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `testing`.`library` (
     REFERENCES `testing`.`user` (`userID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `testing`.`playlist` (
     REFERENCES `testing`.`library` (`libraryPID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 -- -----------------------------------------------------
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `testing`.`playlistTrack` (
     REFERENCES `testing`.`playlist` (`playlistID`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = MyISAM;
 
 
 
