@@ -42,6 +42,11 @@
 							<font size="5">View list of Tracks</font>
 							</a>
 						</li>
+						<li>
+							<a id="userStory10" onclick="viewAllTracks()" href="#">
+							<font size="5">View all Tracks</font>
+							</a>
+						</li>
 					</ul>
 				</li>
 				<li><a id="network manager" href="#" onclick="editBackups()"><font size="5">Edit Backups</font></a>
@@ -82,6 +87,15 @@
     		});
 			frame = document.getElementById("frame");
 			frame.innerHTML = '<iframe src="trackTable.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
+		}
+		function viewAllTracks() {
+	        $("#msgbox").fadeOut(function(){
+        		$(this).text(
+        				'View All Tracks'
+        				).fadeIn();
+    		});
+			frame = document.getElementById("frame");
+			frame.innerHTML = '<iframe src="allTrackTable.html" width="100%" height="900px" style="border-radius:20px;"" frameborder="0"></iframe>';
 		}
 		function importBackups() {
 	        $("#msgbox").fadeOut(function(){
