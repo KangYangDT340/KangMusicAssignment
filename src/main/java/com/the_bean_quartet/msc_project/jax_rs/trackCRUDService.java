@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.the_bean_quartet.msc_project.entities.Options;
 import com.the_bean_quartet.msc_project.entities.playlistList;
+import com.the_bean_quartet.msc_project.entities.playlistTrackList;
 import com.the_bean_quartet.msc_project.entities.track;
 import com.the_bean_quartet.msc_project.entities.trackList;
 import com.the_bean_quartet.msc_project.services.playlistService;
@@ -53,7 +54,8 @@ public class trackCRUDService {
 	@POST
     @Path("/gettrackbyplaylist")
 	@Consumes(MediaType.APPLICATION_JSON)
-    public trackList getTrackByPlaylist(Options option) {
+	@Produces(MediaType.APPLICATION_JSON)
+    public playlistTrackList getTrackByPlaylist(Options option) {
 		System.out.println("in track cruds");
 		
 //		int userID=(Integer.parseInt(option.getOption1()));
@@ -61,10 +63,10 @@ public class trackCRUDService {
 		int p=212;
 		String lib="542CEAB7C8BAE946";
 		int u=1;
-        trackList data = new trackList();
+		playlistTrackList data = new playlistTrackList();
 //        data.setTrackCollection(trackService.getTrackByPlaylist(u,lib, p));
 
-                data.setTrackCollection(trackService.getTrackByPlaylist(u, playlistID));
+                data.setPlaylistTrackCollection(trackService.getTrackByPlaylist(u, playlistID));
         return data;
 		
 	}
@@ -103,6 +105,28 @@ public class trackCRUDService {
 		return trackService.reNameTrack(id, name);
 	}
 		
-
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/delete")
+	public String deleteTrack(Options opt){
+		System.out.println(opt.getOption1());
+		int id = Integer.parseInt(opt.getOption1());
+		return trackService.deleteTrack(id);
 	}
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/move")
+	public String moveTrack(Options opt){
+		int p_id = Integer.parseInt(opt.getOption1());
+		int to_p_id = Integer.parseInt(opt.getOption3());
+		int track_id = Integer.parseInt(opt.getOption2());
+		return trackService.moveTrack(p_id,track_id,to_p_id);
+	}
+	
+
+
+}
 	

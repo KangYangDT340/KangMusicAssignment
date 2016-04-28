@@ -75,16 +75,17 @@
 			type : 'GET',
 			url : "rest/library/userdetail",
 			success : function message(data) {
-				alert(JSON.stringify(data));
+				//alert(JSON.stringify(data));
 				
 				var table = $('#myTable').dataTable();
 				table.fnClearTable();
 				
 				$.each(data.libraryCollection, function(index, value) {
+				
 		            table.dataTable().fnAddData([
-	        			JSON.stringify(value.userID),
-	        			JSON.stringify(value.userName),
-	        			JSON.stringify(value.libraryPID)
+						value[0],
+						value[1],
+						value[2]
 	        			
 		            ]);
 			    });

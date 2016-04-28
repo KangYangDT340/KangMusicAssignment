@@ -33,41 +33,25 @@
 	<div class="login-card">
 		<form role="form" id="details">
 			<div id="playlist-list1">
-				<label>Select Playlist ID:</label> <br> <select
+				<label>Select Playlist:</label> <br> <select
 					id="playlist1-dropdown" tabindex="-1"
-					class="js-example-basic-single form-control"
-					onchange="">
+					class="js-example-basic-single form-control">
 					<option value=""></option>
+	
 				</select> 
 			</div>
 			<br>
-			<input type="submit" class="login login-submit" value="Submit">
+			<input type="submit" class="login login-submit" value="Delete">
 		</form>
 	</div>
 	<br>
 	<br>
-	</div>
-	<div align="center">
-		<table id="myTable" class="display" width="100%" cellspacing="0" >
-			<thead>
-				<tr>
-					<th>Track Id</th>
-					<th>Name</th>
-					<th>Album</th>
-				</tr>
-			</thead>
-		</table>
 	</div>
 
 	<script>
 	$(document).ready(function() {
 		$(".js-example-basic-single").select2();
 	});
-	$('#myTable').DataTable( {
-		"language": {
-			"emptyTable": "No data to display"
-		}
-	} );
 
 	function obj(option1, option2, option3, option4) {
 		this.option1 = option1;
@@ -84,11 +68,10 @@
 	$.ajax({
 			async : false,
 			type : 'GET',
-			url : "rest/track/getplaylistid",
+			url : "rest/track/gettrackid",
 			success : function message(data) {
-				//alert(JSON.stringify(data));
 			$track_dropdown.html('');
-			$.each(data.playlistCollection, function (index, value) {
+			$.each(data.trackCollection, function (index, value) {
 		    	   $playlist1_dropdown.append('<option>' + value + '</option>');//to be adjusted
 		    	   //$playlist2_dropdown.append('<option>' + value.id + '</option>');
 		   });
@@ -100,9 +83,9 @@
 	$("#details").submit(
 		function getTracks() {
 
-			var url = "rest/track/gettrackbyplaylist";
+			var url = "rest/track/delete";
 			var obj1 = new obj(
-				document.getElementById("playlist1-dropdown").value, //id
+				document.getElementById("playlist-list1").value, //id
 				"", //id
 				"",
 				""
@@ -115,7 +98,7 @@
 				contentType : 'application/json',
 				data:JSON.stringify(obj1),
 				success : function output(data) {
-				//	alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
 
 					var table = $('#myTable').dataTable();
 					table.fnClearTable();

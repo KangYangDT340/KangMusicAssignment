@@ -20,7 +20,7 @@
   width: 400px;
   background-color: #e7e7e7;
   margin: 0 auto 10px;
-  border-radius: 20px;
+  border-radius: 0px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
@@ -137,12 +137,12 @@ th {
 .indexPage{
   
   background-color: #D358F7;
-  background: linear-gradient(#D358F7, #F8EFFB);
+  background: linear-gradient(#FFFFFF, #111111);
   background-repeat:no-repeat;
   
 }
 .main-page-background{
-  background-color: rgb(1,1,1)
+  background-color: rgb(123,123,123)
 
 }
 html { 

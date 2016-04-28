@@ -12,6 +12,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.the_bean_quartet.msc_project.dao.trackDAO;
+import com.the_bean_quartet.msc_project.entities.playlist;
+import com.the_bean_quartet.msc_project.entities.playlistTrackList;
+import com.the_bean_quartet.msc_project.entities.playlist_track;
 import com.the_bean_quartet.msc_project.entities.track;
 
 @Stateless
@@ -39,14 +42,14 @@ public class trackJPA implements trackDAO {
 
 
 	@Override
-	public Collection<track> getTrackByPlaylist(int userID, int playlistID) {
-		Query query = em.createQuery("select p.track.trackID, p.track.trackName, p.track.albumName from playlist_track p where p.playlistID = :playlistID"
+	public Collection<playlist_track> getTrackByPlaylist(int userID, int playlistID) {
+		Query query = em.createQuery("select p.track from playlist_track p where p.playlistID = :playlistID"
 				+ " and p.playlist.libraryPID.user.userID=:userID");
 //		.trackID, p.track.trackName, p.track.trackAlbum 
 		query.setParameter("playlistID", playlistID);
 		query.setParameter("userID", userID);
 		//Query query = em.createQuery("from Playlist_Track_Link");
-		List<track> data = query.getResultList();
+		List<playlist_track> data = query.getResultList();
 //		System.out.println("number of rows acquired: "+data.size());
 		return data;
 	}
@@ -69,13 +72,38 @@ public class trackJPA implements trackDAO {
 
 	@Override
 	public String reNameTrack(int id, String name) {
-		Query query = em.createQuery("update playlist_track set track.trackName = :name where trackId = :id");
-		query.setParameter("name", name);
-		query.setParameter("id", id);
+
 		track track = em.find(track.class, id);
 		track.setTrackName(name); 
 		em.merge(track); 
 		return "Name Changed";
+	}
+
+
+	@Override
+	public String deleteTrack(int id) {
+		
+		track track = em.find(track.class, id);
+		em.remove(track);
+		return "Track Deleted";
+	}
+
+
+	@Override
+	public String moveTrack(int p_id, int track_id, int to_p_id) {
+		
+		
+		playlist plist = em.find(playlist.class,to_p_id);
+		track track = em.find(track.class, track_id);
+		playlist_track playlistTrack = new playlist_track(plist,track);
+		
+		String id = track_id+""+p_id;
+		
+		playlist_track playlistTrack_delete = em.find(playlist_track.class, id);
+		em.remove(playlistTrack_delete);
+		
+
+		return "track moved";
 	}
 		
 

@@ -49,9 +49,9 @@ public class userCRUDService {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/verify")
-	public String verifyUser(user user){
+	public String verifyUser(Options opt){
 		System.out.println("verf11111111111111111111111111111111111iy user");
-
+		user user = new user(opt.getOption1(),opt.getOption2());
 		System.out.println("verfiy user");
 		return userService.verifyUser(user);
 	}
@@ -61,18 +61,13 @@ public class userCRUDService {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/register")
-	public String register(user user){
+	public String register(Options opt){
 		System.out.println("verfregister11111111111111111111iy user");
 
-		String name = user.getUserName();
-		String password = user.getUserPassword();
-		
-		String rules = "";
-		rules=verifyUserRule(name,password);
-		if(!rules.equals("valid")){
-			return rules;
-		}		
-		return userService.addUser(user);
+		String name = opt.getOption1();
+		String password = opt.getOption2();
+				
+		return userService.addUser(new user(name,password));
 	}
 	
 	@POST

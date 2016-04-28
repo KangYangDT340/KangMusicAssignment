@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.the_bean_quartet.msc_project.dao.trackDAO;
+import com.the_bean_quartet.msc_project.entities.playlist_track;
 import com.the_bean_quartet.msc_project.entities.track;
 
 @Stateless
@@ -39,7 +40,7 @@ public class trackServiceEJB implements trackService{
 	}
 
 	@Override
-	public Collection<track> getTrackByPlaylist(int userID, int playlistID) {
+	public Collection<playlist_track> getTrackByPlaylist(int userID, int playlistID) {
 		
 		return trackDAO.getTrackByPlaylist(userID, playlistID);
 	}
@@ -59,6 +60,18 @@ public class trackServiceEJB implements trackService{
 	public Collection<track> getTrackByPlaylist_trackID() {
 		// TODO Auto-generated method stub
 		return trackDAO.getTrackByPlaylist_trackID();
+	}
+
+	@Override
+	public String deleteTrack(int id) {
+		// TODO Auto-generated method stub
+		return trackDAO.deleteTrack(id);
+	}
+
+	@Override
+	public String moveTrack(int p_id, int track_id, int to_p_id) {
+		// TODO Auto-generated method stub
+		return trackDAO.moveTrack(p_id,track_id,to_p_id);
 	}
 
 

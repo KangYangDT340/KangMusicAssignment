@@ -61,14 +61,18 @@
 	    }
 
 	    
-		function user(name, password) {
-			this.name = name;
-			this.password = password;
+		function obj(option1, option2, option3, option4) {
+			this.option1 = option1;
+			this.option2 = option2;
+			this.option3 = option3;
+			this.option4 = option4;
 		}
 		$("#login").submit(function Login(){
-			var user = new user(
+			var user = new obj(
 				document.getElementById("username").value,
-				document.getElementById("password").value
+				document.getElementById("password").value,
+				"",
+				""
 			);
 			if(document.getElementById("password").value != document.getElementById("re_enter_password").value)
 		        $("#msgbox").fadeOut(function(){
@@ -80,7 +84,7 @@
 				url : url,
 				data : JSON.stringify(user),
 				success : function islogin(data) {
-					alert(JSON.stringify(data));
+					//alert(JSON.stringify(data));
 
 					if(registering==false){
 						if (data != "false") {

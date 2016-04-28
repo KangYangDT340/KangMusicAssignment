@@ -30,16 +30,22 @@
 	
 	<div class="login-card">
 		<form role="form" id="details">
-			<div id="playlist-list1">
-				<label>Select Playlist:</label> <br> 
-				<select
-					id="playlist1-dropdown" tabindex="-1"
-					class="js-example-basic-single form-control"
-					onchange="updateTrackDropdown(this);">
-					<option value=""></option>
-	
+
+			<div id="track-list1">
+				<label>Select Track:</label> <br> <select
+					id="track-dropdown" tabindex="-1"
+					class="js-example-basic-single form-control">
+					<option>Track</option>
+
 				</select> 
 			</div>
+			<br>
+			<div id="playlist-name" class="form-group">
+				<label>Change Playlist Name:</label> <br> 
+				<input type="text" class="form-control bfh-text" placeholder="New Playlist Name" id="newPlaylistName">
+			</div>
+			<input type="submit" class="login login-submit" value="Update">
+		</form>
 			
 	</div>
 
@@ -48,32 +54,7 @@
 		$(".js-example-basic-single").select2();
 	});
 	
-	var optionAnswer="playlistName";
-	function changeOption(opt){
-		if(opt.value == "playlistName"){
-	        $("#playlist-name").show("slow");
-	        $("#playlist-list1").show("slow");
-	        $("#playlist-list2").hide("slow");
-	        $("#track-list1").hide("slow");
-	        optionAnswer = "playlistName";
-		}
-		
-		if(opt.value == "moveTrack"){
-	        $("#playlist-list1").show("slow");
-	        $("#playlist-list2").show("slow");
-	        $("#track-list1").show("slow");
-	        $("#playlist-name").hide("slow");
-	        optionAnswer = "moveTrack";
-		}
-		
-		if(opt.value == "deletePlaylist"){
-	        $("#playlist-list1").show("slow");
-	        $("#playlist-list2").hide("slow");
-	        $("#track-list1").hide("slow");
-	        $("#playlist-name").hide("slow");
-	        optionAnswer = "deletePlaylist";
-		}
-	}
+
 	function obj(option1, option2, option3, option4) {
 		this.option1 = option1;
 		this.option2 = option2;
@@ -83,84 +64,43 @@
 	var $select = $('#userId');
 
 
-	var $playlist1_dropdown = $('#playlist1-dropdown');
-	var $playlist2_dropdown = $('#playlist2-dropdown');
 	var $track_dropdown = $('#track-dropdown');
 	/*When playlist from playlist1 dropown is selected, this function is called
 		it will populate the track drop down with tracks from selected playlist
 	*/
-	function updateTrackDropdown(playlist){
-		var playlistID = playlist.value;
-		var urlAddress = "rest/lib/tracklist";//to be confirmed
-		/*
-		if(optionAnswer == "moveTrack" || optionAnswer == "deleteTrack"){}
-			$.ajax({
-					async : false,
-					type : 'POST',
-					url : urlAddress,
-					data : JSON.stringify(playlist),
-					success : function message(data) {
-					$track_dropdown.html('');
-					$.each(data.sysUserCollection, function (index, value) {
-				    	   $track_dropdown.append('<option>' + value.id + '</option>');
-				   });
-				}
-			});
-		}
-		*/
-	}
-	
 	$.ajax({
-			async : false,
-			type : 'GET',
-			url : "rest/track/getplaylistid",
-		//	data : JSON.stringify(playlist.id),
-			success : function message(data) {
+		async : false,
+		type : 'GET',
+		url : "rest/track",
+		success : function message(data) {
+			//alert(JSON.stringify(data));
+			
 			$track_dropdown.html('');
-			$.each(data.playlistCollection, function (index, value) {
-		    	   $playlist1_dropdown.append('<option>' + value + '</option>');//to be adjusted
-		    	   $playlist2_dropdown.append('<option>' + value + '</option>');
+			$.each(data.trackCollection, function (index, value) {
+				
+		    	   $track_dropdown.append('<option>' + value.trackID + '</option>');//to be adjusted
 		   });
-		}
+			
+			
+	   	},
+		contentType: 'application/json'
 	});
+	
+
 	
 	
 	$("#details").submit(
 		function editPlaylist() {
 
-			var url = "";
+			var url = "rest/track/changename";
 			
-			if(optionAnswer == "moveTrack"){
-				url = "rest/lib/move_track";
-				var obj1 = new obj(
-					document.getElementById("playlist1-dropdown").value, //id
-					document.getElementById("track-dropdown").value, //id
-					document.getElementById("playlist2-dropdown").value, //id
-					""
-				);
-			}
-			if(optionAnswer == "deletePlaylist"){
-				url = "rest/lib/delete_playlist";
-				var obj1 = new obj(
-					document.getElementById("playlist1-dropdown").value, 
-					"", 
-					"",
-					""
-				);
-			}
-			if(optionAnswer == "playlistName"){
-				url = "rest/lib/rename_playlist";
-				var obj1 = new obj(
-					document.getElementById("playlist1-dropdown").value, 
+			var obj1 = new obj(
+					document.getElementById("track-dropdown").value, 
 					document.getElementById("newPlaylistName").value, 
 					"",
 					""
 				);
-			}
-		//	alert("url: "+url);
-		//	alert("option: "+optionAnswer);
-		//	alert("obj 1: "+obj1.option1+" obj 2: "+obj1.option2+" obj 3: "+obj1.option3);
-			/*
+
 			$.ajax({
 				async: false,
 				type : 'POST',
@@ -171,7 +111,6 @@
 					alert(JSON.stringify(data));//outputs success or failure messages
 				},
 			});
-			*/
 	});
 
 	</script>
