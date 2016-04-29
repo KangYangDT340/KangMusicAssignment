@@ -64,7 +64,7 @@ public class trackJPA implements trackDAO {
 	}
 	@Override
 	public Collection<track> getTrackByPlaylist_trackID() {
-		Query query = em.createQuery("select p.trackID from playlist_track p");
+		Query query = em.createQuery("select distinct p.trackID from playlist_track p");
 		List<track> data = query.getResultList();
 
 		return data;
@@ -96,7 +96,7 @@ public class trackJPA implements trackDAO {
 		playlist plist = em.find(playlist.class,to_p_id);
 		track track = em.find(track.class, track_id);
 		playlist_track playlistTrack = new playlist_track(plist,track);
-		
+		em.persist(playlistTrack);
 		String id = track_id+""+p_id;
 		
 		playlist_track playlistTrack_delete = em.find(playlist_track.class, id);
